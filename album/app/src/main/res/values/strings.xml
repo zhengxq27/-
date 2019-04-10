@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">album</string>
+    <string name="hint_image_preview_click">Click on a item to preview them.</string>
+</resources>
