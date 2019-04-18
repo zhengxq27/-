@@ -25,10 +25,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
-    compile 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
+
+    //Deprecated since 1.7.0
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.7.0@aar'
     implementation 'com.yanzhenjie:album:2.1.3'
 
 }

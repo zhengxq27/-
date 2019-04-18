@@ -37,8 +37,7 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, // 系统会在Fragment首次绘制其用户界面时调用此方法
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_page,container,false);
-//        mToolbar = root.findViewById(R.id.toolbar);
-////        getActivity().setSupportActionBar(mToolbar);
+
 
         mTvMessage = root.findViewById(R.id.tv_message);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);

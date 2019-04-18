@@ -1,94 +1,60 @@
 package com.study.sysu.photo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (getSupportActionBar() != null){  // 去掉标题栏
+            getSupportActionBar().hide();
+        }
+        verifyStoragePermissions(MainActivity.this);
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("照片", PageFragment1.class)
+                .add("相册", PageFragment2.class)
+                .add("发现", PageFragment3.class)
+                .create());
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_images);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
 
-        ImageGalleryAdapter adapter = new ImageGalleryAdapter(this, SpacePhoto.getSpacePhotos());  //调用这个函数的时候SpacePhoto并不是空的
-        recyclerView.setAdapter(adapter);
+        SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
     }
 
-    private class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder>  {
+    public static void verifyStoragePermissions(Activity activity) {
 
-        private SpacePhoto[] mSpacePhotos;
-        private Context mContext;
-
-        @Override
-        public ImageGalleryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-            Context context = parent.getContext();
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View photoView = inflater.inflate(R.layout.item_photo, parent, false);
-            ImageGalleryAdapter.MyViewHolder viewHolder = new ImageGalleryAdapter.MyViewHolder(photoView);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position) {
-
-            SpacePhoto spacePhoto = mSpacePhotos[position];
-            //Log.d("testing", "onBindViewHolder: " + spacePhoto.getUrl());
-            //到这里为止我们也成功获取了所有图片的url
-            ImageView imageView = holder.mPhotoImageView;
-            Glide.with(mContext) //传递上下文
-                    .load(spacePhoto.getUrl()) // 目录路径或者URI或者URL
-                    .centerCrop() // 图片有可能被裁剪
-                    .placeholder(R.drawable.error) //一个本地APP资源id，在图片被加载前作为占位的图片
-                    .into(imageView); // 要放置图片的目标imageView控件
-        }
-
-        @Override
-        public int getItemCount() {
-            return (mSpacePhotos.length);
-        }
-
-        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-            public ImageView mPhotoImageView;
-            public MyViewHolder(View itemView) {
-                super(itemView);
-                mPhotoImageView = (ImageView) itemView.findViewById(R.id.iv_photo);
-                itemView.setOnClickListener(this);
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
             }
-
-            @Override
-            public void onClick(View view) {
-
-                int position = getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
-                    SpacePhoto spacePhoto = mSpacePhotos[position];
-                    Intent intent = new Intent(mContext, SpacePhotoActivity.class);
-                    intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
-                    startActivity(intent);
-                }
-            }
-        }
-
-        public ImageGalleryAdapter(Context context, SpacePhoto[] spacePhotos) {
-            mContext = context;
-            mSpacePhotos = spacePhotos;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 }
