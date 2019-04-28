@@ -10,9 +10,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder>  {
 
-    private SpacePhoto[] mSpacePhotos;
+    private ArrayList<SpacePhoto> mSpacePhotos;
     private Context mContext;
 
     @Override
@@ -28,7 +30,7 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
     @Override
     public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position) {
 
-        SpacePhoto spacePhoto = mSpacePhotos[position];
+        SpacePhoto spacePhoto = mSpacePhotos.get(position);
         //Log.d("testing", "onBindViewHolder: " + spacePhoto.getUrl());
         //到这里为止我们也成功获取了所有图片的url
         ImageView imageView = holder.mPhotoImageView;
@@ -41,7 +43,7 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
 
     @Override
     public int getItemCount() {
-        return (mSpacePhotos.length);
+        return (mSpacePhotos.size());
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,7 +60,7 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
 
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
-                SpacePhoto spacePhoto = mSpacePhotos[position];
+                SpacePhoto spacePhoto = mSpacePhotos.get(position);
                 Intent intent = new Intent(mContext, SpacePhotoActivity.class);
                 intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
                 mContext.startActivity(intent);
@@ -66,7 +68,8 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
         }
     }
 
-    public ImageGalleryAdapter(Context context, SpacePhoto[] spacePhotos) {
+    public ImageGalleryAdapter(Context context, ArrayList<SpacePhoto> spacePhotos) {
+        mSpacePhotos = new ArrayList<>();
         mContext = context;
         mSpacePhotos = spacePhotos;
     }
