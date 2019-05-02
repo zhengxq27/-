@@ -14,7 +14,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/error"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_gravity="center"/>
 
         <LinearLayout
@@ -26,9 +27,7 @@
                 android:id="@+id/album_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="微信相册"
-                android:gravity="center"
-                android:layout_gravity="center"/>
+                android:text="微信相册" />
             <TextView
                 android:id="@+id/picture_num"
                 android:layout_width="wrap_content"

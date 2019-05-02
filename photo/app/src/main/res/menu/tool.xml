@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="1"
+        android:icon="@drawable/error"
+        android:title="test1"/>
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="2"
+        android:icon="@drawable/error"
+        android:title="test2"/>
+    <item
+        android:id="@+id/menu_quit"
+        android:orderInCategory="3"
+        android:icon="@drawable/error"
+        android:title="test3"/>
+
+</menu>
+

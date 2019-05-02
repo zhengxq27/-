@@ -2,6 +2,7 @@ package com.study.sysu.photo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +32,6 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
     public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position) {
 
         SpacePhoto spacePhoto = mSpacePhotos.get(position);
-        //Log.d("testing", "onBindViewHolder: " + spacePhoto.getUrl());
-        //到这里为止我们也成功获取了所有图片的url
         ImageView imageView = holder.mPhotoImageView;
         Glide.with(mContext) //传递上下文
                 .load(spacePhoto.getUrl()) // 目录路径或者URI或者URL
@@ -61,8 +60,11 @@ class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyVie
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                 SpacePhoto spacePhoto = mSpacePhotos.get(position);
+                String url = spacePhoto.getUrl();
                 Intent intent = new Intent(mContext, SpacePhotoActivity.class);
-                intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
+                Bundle bundle = new Bundle();
+                bundle.putString("url",url);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         }

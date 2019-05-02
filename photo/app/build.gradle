@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.study.sysu.photo"
-        minSdkVersion 20
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -36,5 +36,6 @@ dependencies {
 
     //Optional: see how to use the utility.
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
+    //compile'com.android.support:design:25.0.1'
 
 }
