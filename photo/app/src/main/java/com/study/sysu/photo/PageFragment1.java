@@ -83,17 +83,10 @@ public class PageFragment1 extends Fragment {
                     new_list.add(new SpacePhoto(path,displayName));
                     String Str[] = dirPath.split("/");
                     String album_name = Str[Str.length - 1];
-                    //album_name = album_name.replace(" ","");
-                    Log.d("album_name", "search_all_picture: " + album_name);
                     all_album.add(new album(new_list,dirPath,album_name));
                 }
 
             }
-
-            for(int i = 0; i < all_album.size(); i++){
-                Log.d("分类3", "相册名称：" + all_album.get(i).getAlbum_name() + "  图片数量：" + all_album.get(i).size());
-            }
-
 
         }
 

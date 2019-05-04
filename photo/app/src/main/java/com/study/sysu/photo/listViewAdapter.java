@@ -63,6 +63,7 @@ public class listViewAdapter extends BaseAdapter
                 .centerCrop() // 图片有可能被裁剪
                 .placeholder(R.drawable.error) //一个本地APP资源id，在图片被加载前作为占位的图片
                 .into(image); // 要放置图片的目标imageView控件
+
         picture_num.setText(list.get(i).size() + "张图片");
         album_name.setText(list.get(i).getAlbum_name());
 
