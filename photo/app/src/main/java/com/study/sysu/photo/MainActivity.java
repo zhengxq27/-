@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void verifyStoragePermissions(Activity activity) {
-
         try {
 
             //检测是否有写的权限
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 // 没有写的权限，去申请写的权限，会弹出对话框
                 ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
             }
-
         }catch (Exception e) {
             e.printStackTrace();
         }
