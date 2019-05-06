@@ -14,7 +14,6 @@ public class PageFragment3 extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_page2,container,false);
 
-
         return root;
     }
 }

@@ -1,29 +1,23 @@
 package com.study.sysu.photo;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import static com.study.sysu.photo.MyApplication.getMyApplication;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -36,30 +30,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
         if (getSupportActionBar() != null){  // 去掉标题栏
             getSupportActionBar().hide();
         }
-        //verifyStoragePermissions(MainActivity.this);
 
-        //search_all_picture();
         app = (MyApplication)getMyApplication();
-        app.set_all_photo_set(all_photo_set); //放到Application中
-        app.set_all_album(all_album);
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("照片", PageFragment1.class)
-                .add("相册", PageFragment2.class)
-                .add("分类", PageFragment3.class)
-                .create());
+        if(app.get_firstIn_var() == true){
+            app.set_firdtIn_var(false);
+            verifyStoragePermissions(SplashActivity.this);
+            search_all_picture();
+            app.set_all_photo_set(all_photo_set); //放到Application中
+            app.set_all_album(all_album);
+            //startActivity(new Intent(SplashActivity.this,MainActivity.class));
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(adapter);
-
-        SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
-        viewPagerTab.setViewPager(viewPager);
-
+        }
+        else{
+            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        }
     }
 
     public void search_all_picture() { // 获取系统中所有图片的路径
@@ -103,7 +92,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public static void verifyStoragePermissions(Activity activity) {
+        try {
+
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-
-
