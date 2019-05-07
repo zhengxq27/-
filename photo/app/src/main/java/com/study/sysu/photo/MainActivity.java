@@ -40,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null){  // 去掉标题栏
             getSupportActionBar().hide();
         }
-        //verifyStoragePermissions(MainActivity.this);
 
-        //search_all_picture();
+        search_all_picture();
         app = (MyApplication)getMyApplication();
         app.set_all_photo_set(all_photo_set); //放到Application中
         app.set_all_album(all_album);

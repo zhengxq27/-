@@ -5,7 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:background="@drawable/cover">
+    android:background="@drawable/cover"
+    android:orientation="vertical">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/image"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#ffffff"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎邂逅智能相册"
+        android:textSize="30dp"
+        android:fontFamily="monospace"
+        android:textColor="#FFC1C1"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/enter_button"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="进入相册"
+        android:textSize="15dp"
+        android:textColor="#FFC1C1"
+        android:gravity="center"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="120dp"
+        android:background="@color/bule"
+        android:onClick="gotoMainAct"
+        android:visibility="invisible"/>
 
 </LinearLayout>

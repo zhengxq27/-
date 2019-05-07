@@ -1,7 +1,9 @@
 package com.study.sysu.photo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,6 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
@@ -26,6 +30,11 @@ public class SplashActivity extends AppCompatActivity {
     private MyApplication app;
     private ArrayList<SpacePhoto> all_photo_set = new ArrayList<>(); // 存放所有图片的路径
     private ArrayList<album> all_album = new ArrayList<>(); //按系统相册所属分开照片
+    public static int MODE = Context.MODE_PRIVATE;
+    private boolean isFirstIn;
+    private SharedPreferences preferences;
+    private Button enter_button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +44,25 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        app = (MyApplication)getMyApplication();
+        preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
+        isFirstIn = preferences.getBoolean("isFirstIn", true);
 
-        if(app.get_firstIn_var() == true){
-            app.set_firdtIn_var(false);
+        if(isFirstIn){
+            enter_button = findViewById(R.id.enter_button);
+            enter_button.setVisibility(View.VISIBLE);
+
             verifyStoragePermissions(SplashActivity.this);
-            search_all_picture();
-            app.set_all_photo_set(all_photo_set); //放到Application中
-            app.set_all_album(all_album);
-            //startActivity(new Intent(SplashActivity.this,MainActivity.class));
 
+            SharedPreferences preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isFirstIn", false);
+            editor.commit();
         }
         else{
-            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+            enter_button = findViewById(R.id.enter_button);
+            enter_button.setVisibility(View.VISIBLE);
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
         }
     }
 
@@ -105,5 +120,14 @@ public class SplashActivity extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void gotoMainAct(View view){
+        search_all_picture();
+        app = (MyApplication)getMyApplication();
+        app.set_all_album(all_album);
+        app.set_all_photo_set(all_photo_set);
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

@@ -9,7 +9,6 @@ public class MyApplication extends Application{
     private static MyApplication instance;
     private static ArrayList<SpacePhoto> all_photo_set = new ArrayList<>(); // 存放所有图片的路径
     private static ArrayList<album> all_album = new ArrayList<>(); //按系统相册所属分开照片
-    private static boolean firstIn = true;
 
     // 获取Application
     public static Context getMyApplication() {
@@ -32,8 +31,5 @@ public class MyApplication extends Application{
         all_album = copy;
     }
 
-    public static void set_firdtIn_var(boolean label) { firstIn = label;}
-
-    public static boolean get_firstIn_var() { return firstIn; }
 
 }

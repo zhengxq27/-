@@ -42,16 +42,16 @@ public class PageFragment1 extends Fragment {
         View root = inflater.inflate(R.layout.fragment_page1,container,false);
 
         app = (MyApplication)getMyApplication();
-//        all_photo_set = app.get_all_photo_set();
-//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-//        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.rv_images_1);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(layoutManager);
-//        if(all_photo_set != null){
-//            ImageGalleryAdapter adapter = new ImageGalleryAdapter(getActivity(), all_photo_set);
-//            //调用这个函数的时候SpacePhoto并不是空的
-//            recyclerView.setAdapter(adapter);
-//        }
+        all_photo_set = app.get_all_photo_set();
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.rv_images_1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        if(all_photo_set != null){
+            ImageGalleryAdapter adapter = new ImageGalleryAdapter(getActivity(), all_photo_set);
+            //调用这个函数的时候SpacePhoto并不是空的
+            recyclerView.setAdapter(adapter);
+        }
         return root;
     }
 
