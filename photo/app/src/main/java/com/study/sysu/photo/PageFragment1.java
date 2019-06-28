@@ -171,7 +171,8 @@ public class PageFragment1 extends Fragment {
             }
         }
         Log.d("imageName", "UploadCameraImage: " + imageName);
-        File file1 = new File(imageName);
+
+        File file1 = new File(imageName); //根据图片路径实例化一个file对象
         if(file1.exists()){
             Log.d("success", "UploadCameraImage: success");
             Log.d("success", "UploadCameraImage: " + file1.getName());
@@ -179,11 +180,10 @@ public class PageFragment1 extends Fragment {
         else{
             Log.d("fail", "UploadCameraImage: fail");
         }
+        //按照格式封装数据
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file1);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file1.getName(), requestFile);
-
         String descriptionString = "this is photo description";
-        //RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
 
         OkHttpClient build = new OkHttpClient.Builder()
                 .connectTimeout(2, TimeUnit.SECONDS)
