@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_images_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_heightPercent="92%" />
 
+    <LinearLayout
+        app:layout_heightPercent="8%"
+        android:background="#BEBEBE"
+        android:layout_width="match_parent"
+        android:layout_below="@id/rv_images_1">
 
-</android.support.design.widget.CoordinatorLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/camear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:src="@drawable/camera1"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp" />
+    </LinearLayout>
+
+</android.support.percent.PercentRelativeLayout>

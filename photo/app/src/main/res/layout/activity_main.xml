@@ -45,5 +45,4 @@
         android:layout_below="@id/viewpagertab"
         />
 
-
 </android.support.constraint.ConstraintLayout>
